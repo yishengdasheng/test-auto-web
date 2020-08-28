@@ -10,11 +10,11 @@
 import configparser
 from common import contants
 
-conf_file = contants.conf
+# conf_file = contants.conf
 
 
 class ReadConf:
-    def __init__(self):
+    def __init__(self, conf_file):
         self.cf = configparser.ConfigParser()
         self.cf.read(conf_file, encoding="utf-8")
 
@@ -23,4 +23,4 @@ class ReadConf:
 
 
 if __name__ == "__main__":
-    print(ReadConf().getvalue("LOG", "name"))
+    print(ReadConf(contants.options).getvalue("登录", "用户名"))

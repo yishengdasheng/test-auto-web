@@ -13,7 +13,7 @@ from common import contants
 
 time = datetime.date.today()
 
-conf = ReadConf()
+conf = ReadConf(contants.conf)
 name = conf.getvalue("LOG", "name").upper()
 in_level = conf.getvalue("LOG", "in_level").upper()
 out_level = conf.getvalue("LOG", "out_level").upper()

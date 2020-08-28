@@ -11,11 +11,14 @@ import os
 
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# 配置文件的目录
 conf_file = os.path.join(base_dir, "config")
 conf = os.path.join(conf_file, "conf.ini")
+options = os.path.join(conf_file, "控件.ini")
+datas = os.path.join(conf_file, "data.ini")
 
-test_object_file = os.path.join(base_dir, "object repository")
-test_data_file = os.path.join(base_dir, "test data")
+# test_object_file = os.path.join(base_dir, "object repository")
+# test_data_file = os.path.join(base_dir, "test data")
 
 report_dir = os.path.join(base_dir, "test report")
+screenshot_dir = os.path.join(base_dir, "screenshot")
