@@ -21,7 +21,7 @@ from common import contants
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-        self.driver.maxmize_window()
+        self.driver.maximize_window()
         self.logger = DoLog()
 
     # 等待元素可见
@@ -35,7 +35,7 @@ class BasePage:
         except NoSuchElementException as e:
             self.logger.error("没有找到该元素")
             raise e
-        except TimeoutError as e:
+        except TimeoutException as e:
             self.logger.error("等待页面超时")
             raise e
 
@@ -48,3 +48,4 @@ class BasePage:
         file_path = os.path.join(contants.screenshot_dir, "{}.png".format(time.strftime("%Y%m%d_%H%M%S_{}".format(r))))
         self.driver.save_screenshot(file_path)
         self.logger.info("已截取当前页面，文件路径：{}".format(file_path))
+

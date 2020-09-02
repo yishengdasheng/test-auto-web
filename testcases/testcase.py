@@ -25,29 +25,32 @@ password = datas.getvalue("USER", "password")
 options = ReadConf(contants.options)
 
 
-class TestCases(unittest.TestCase, BasePage):
+class TestCases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         option = webdriver.ChromeOptions()
         option.add_argument("--disable-infobars")  # 关闭浏览器的提示栏
         # 实例化chrome类，启动chrome浏览器
-        driver = webdriver.Chrome(options=option, service_args=["--verbose"], service_log_path="chrome_server.log")
+        driver = webdriver.Chrome(options=option, service_args=["--verbose"])
         driver.get(governor_url)
+
         # 设置全局等待
         driver.implicitly_wait(30)
-        basepage = BasePage(driver)
-        globals()["driver"] = driver
+        cls.basepage = BasePage(driver)
+        cls.basepage.logger.info("打开浏览器")
+        # driver.maximize_window()
+        cls.driver = driver
 
     @classmethod
     def tearDownClass(cls):
-        driver.close()
-        driver.quit()
+        cls.driver.quit()
+        cls.basepage.logger.info("关闭浏览器")
 
-    def test_login(self):
+    def test_1_login(self):
 
-        username = driver.find_element_by_xpath(options.getvalue("登录", "用户名"))
-        pwd = driver.find_element_by_xpath(options.getvalue("登录", "密码"))
-        login_button = driver.find_element_by_xpath(options.getvalue("登录", "登录"))
+        username = self.driver.find_element_by_xpath(options.getvalue("登录", "用户名"))
+        pwd = self.driver.find_element_by_xpath(options.getvalue("登录", "密码"))
+        login_button = self.driver.find_element_by_xpath(options.getvalue("登录", "登录"))
 
         username.send_keys(name)
         pwd.send_keys(password)
@@ -55,21 +58,29 @@ class TestCases(unittest.TestCase, BasePage):
 
         # 检查登录后首页的logo元素有没有出现
         # logo = driver.find_element_by_xpath('//p[@class="title ml30 flex-row flex-center"]')  # presence_of_element_located() 后面的值一定要是str
-        logo = options.getvalue("登录", "能源节度使")
-        basepage.wait_eleVisible(logo, wait_time=5)
+        logo = options.getvalue("能源节度使", "logo")
+        self.basepage.wait_eleVisible(logo, wait_time=10)
+        try:
+            self.assertTrue('能源节度使' in logo)
+        except AssertionError as e:
+            self.basepage.logger.error("test_1_login用例断言失败")
+            raise e
 
-     # 能源驾驶舱
-    def test_skyView(self):
-        basepage = BasePage(driver)
-        nengyuanjiashicang_h2 = driver.find_element_by_xpath(options.getvalue("能源驾驶舱", "二级菜单"))
+    # 能源驾驶舱
+    def test_2_skyView(self):
+        nengyuanjiashicang_h2 = self.driver.find_element_by_xpath(options.getvalue("能源驾驶舱", "二级菜单"))
         nengyuanjiashicang_h2.click()
 
         word_element = options.getvalue("能源驾驶舱", "本月累计电量")
-        basepage.wait_eleVisible(word_element, wait_time=5)
+        # self.basepage.wait_eleVisible(word_element, wait_time=10)
+        try:
+            self.assertTrue("本月累计电量" in word_element)
+        except AssertionError as e:
+            self.basepage.logger.error("test_2_skyView 用例断言失败")
+            raise e
 
     # 设备告警
-    def test_operationMonitor(self):
-        basepage = BasePage(driver)
+    def test_3_operationMonitor(self):
         shebeigaojing_h1 = self.driver.find_element_by_xpath(options.getvalue("设备告警", "一级菜单"))
         shebeigaojing_h1.click()
 
@@ -78,11 +89,22 @@ class TestCases(unittest.TestCase, BasePage):
 
         dangqiangaojing_h2.click()
         word_element_1 = options.getvalue("设备告警", "元素_当前未结")
-        basepage.wait_eleVisible(word_element_1, wait_time=5)
+        # self.basepage.wait_eleVisible(word_element_1, wait_time=10)
+        try:
+            self.assertTrue("当前未结" in word_element_1)
+        except AssertionError as e:
+            self.basepage.logger.error("test_3_operationMonitor,当前告警 用例断言失败")
+            raise e
 
         lishigaojing_h2.click()
         word_element_2 = options.getvalue("设备告警", "元素_查询按钮")
-        basepage.wait_eleVisible(word_element_2, wait_time=5)
+        # self.basepage.wait_eleVisible(word_element_2, wait_time=10)
+        try:
+            self.assertTrue("查询" in word_element_2)
+        except AssertionError as e:
+            self.basepage.logger.error("test_3_operationMonitor,历史告警 用例断言失败")
+            raise e
+
 
 
     # 实时监测
@@ -366,7 +388,8 @@ class TestCases(unittest.TestCase, BasePage):
     #     except TimeoutError as error:
     #         print("等待页面超时")
 
-
+if __name__ == "__main__":
+    unittest.main()
 
 
 

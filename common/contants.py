@@ -17,8 +17,9 @@ conf = os.path.join(conf_file, "conf.ini")
 options = os.path.join(conf_file, "控件.ini")
 datas = os.path.join(conf_file, "data.ini")
 
-# test_object_file = os.path.join(base_dir, "object repository")
-# test_data_file = os.path.join(base_dir, "test data")
+# test_object_file = os.path.join(base_dir, "object_repository")
+# test_data_file = os.path.join(base_dir, "test_data")
 
-report_dir = os.path.join(base_dir, "test report")
+report_dir = os.path.join(base_dir, "test_report")
+report = os.path.join(report_dir, "report.html")
 screenshot_dir = os.path.join(base_dir, "screenshot")
