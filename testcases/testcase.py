@@ -10,11 +10,13 @@
 # 生成判断条件    expected_conditions.方法名((定位方式， 定位表达式))  元组格式
 # 查找某元素是否存在  expected_conditions.presence_of_element_located((By.XPATH, logo))
 import unittest
-import pytest
+# import pytest
 from selenium import webdriver
 from config.read_conf import ReadConf
 from common import contants
 from testcases.basepage import BasePage
+import time
+from selenium.common.exceptions import *
 
 
 governor_url = ReadConf(contants.conf).getvalue("URL", "governor_url")
@@ -37,6 +39,7 @@ class TestCases(unittest.TestCase):
         # 设置全局等待
         driver.implicitly_wait(30)
         cls.basepage = BasePage(driver)
+        cls.basepage.logger.info("================================")
         cls.basepage.logger.info("打开浏览器")
         # driver.maximize_window()
         cls.driver = driver
@@ -60,6 +63,7 @@ class TestCases(unittest.TestCase):
         # logo = driver.find_element_by_xpath('//p[@class="title ml30 flex-row flex-center"]')  # presence_of_element_located() 后面的值一定要是str
         logo = options.getvalue("能源节度使", "logo")
         self.basepage.wait_eleVisible(logo, wait_time=10)
+        self.basepage.logger.info("用例成功执行")
         try:
             self.assertTrue('能源节度使' in logo)
         except AssertionError as e:
@@ -71,10 +75,11 @@ class TestCases(unittest.TestCase):
         nengyuanjiashicang_h2 = self.driver.find_element_by_xpath(options.getvalue("能源驾驶舱", "二级菜单"))
         nengyuanjiashicang_h2.click()
 
-        word_element = options.getvalue("能源驾驶舱", "本月累计电量")
+        word_element = options.getvalue("能源驾驶舱", "能源消耗总量")
         # self.basepage.wait_eleVisible(word_element, wait_time=10)
         try:
-            self.assertTrue("本月累计电量" in word_element)
+            self.assertTrue("能源消耗总量" in word_element)
+            self.basepage.logger.info("用例成功执行")
         except AssertionError as e:
             self.basepage.logger.error("test_2_skyView 用例断言失败")
             raise e
@@ -92,6 +97,7 @@ class TestCases(unittest.TestCase):
         # self.basepage.wait_eleVisible(word_element_1, wait_time=10)
         try:
             self.assertTrue("当前未结" in word_element_1)
+            self.basepage.logger.info("用例成功执行")
         except AssertionError as e:
             self.basepage.logger.error("test_3_operationMonitor,当前告警 用例断言失败")
             raise e
@@ -101,292 +107,225 @@ class TestCases(unittest.TestCase):
         # self.basepage.wait_eleVisible(word_element_2, wait_time=10)
         try:
             self.assertTrue("查询" in word_element_2)
+            self.basepage.logger.info("用例成功执行")
         except AssertionError as e:
             self.basepage.logger.error("test_3_operationMonitor,历史告警 用例断言失败")
             raise e
 
-
-
     # 实时监测
-    # def test_currentAlarm(self):
-    #
-    #     shishijiance_h1 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[3]/div/span')
-    #     shishigongkuang_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[3]/ul/li/ul/li[1]/span')
-    #     mingxichaxun_h2 = self.driver.find_element_by_xpath('//span[text()="明细查询"]')
-    #
-    #     shishijiance_h1.click()
-    #     shishigongkuang_h2.click()
-    #
-    #     # 检查有没有出现弹窗提醒，有则点确定关掉弹窗
-    #     time.sleep(3)
-    #     try:
-    #         ok = self.driver.switch_to.alert
-    #         ok.accept()
-    #     except e.NoAlertPresentException as noalert:
-    #         print(noalert)
-    #
-    #     # 切换站点到 宜山大楼
-    #     xiala_element = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/div/div/div[1]/div[1]/div/div/span/span/i')
-    #     xiala_element.click()
-    #     yishandalou = self.driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[1]/ul/li[4]/span')
-    #     yishandalou.click()
-    #
-    #     time.sleep(2)
-    #     word_element_4 = '//*[@id="text4"]/text'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_4)))
-    #     # except e.InvalidSelectorException as error:
-    #     #     print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     #     self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     # except e.NoSuchElementException as error:
-    #     #     print("没有找到该元素")
-    #     #     self.logger.error("没有找到该元素")
-    #     # except TimeoutError as error:
-    #     #     print("等待页面超时")
-    #     except Exception as error:
-    #         self.logger.error(error)
-    #         print(error)
-    #
-    #
-    #     mingxichaxun_h2.click()
-    #     word_element_5 = '//*[@id="pane-day"]/button'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_5)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
+    def test_4_currentAlarm(self):
+        shishijiance_h1 = self.driver.find_element_by_xpath(options.getvalue("实时监测", "一级菜单"))
+        shishigongkuang_h2 = self.driver.find_element_by_xpath(options.getvalue("实时监测", "二级菜单_实时工况"))
+        mingxichaxun_h2 = self.driver.find_element_by_xpath(options.getvalue("实时监测", "二级菜单_明细查询"))
+        shishijiance_h1.click()
+        shishigongkuang_h2.click()
+
+        # 检查有没有出现弹窗提醒，有则点确定关掉弹窗
+        time.sleep(3)
+        try:
+            ok = self.driver.switch_to.alert
+            ok.accept()
+        except (NoSuchElementException, NoAlertPresentException) as noalert:
+            print(noalert)
+
+        # 切换站点到 宜山大楼
+        xiala_element = self.driver.find_element_by_xpath(options.getvalue("实时监测", "下拉箭头"))
+        xiala_element.click()
+        yishandalou = self.driver.find_element_by_xpath(options.getvalue("实时监测", "宜山大楼"))
+        yishandalou.click()
+
+        time.sleep(2)
+        word_element_4 = options.getvalue("实时监测", "接线图文字")
+        try:
+            self.basepage.wait_eleVisible(word_element_4, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_4_currentAlarm,实时工况 用例断言失败")
+            raise e
+
+        mingxichaxun_h2.click()
+        word_element_5 = options.getvalue("实时监测", "明细查询_查询按钮")
+        try:
+            self.basepage.wait_eleVisible(word_element_5, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_4_currentAlarm,明细查询 用例断言失败")
+            raise e
 
     # 运维工单
-    # def test_orderManage(self):
-    #
-    #     # 切换到运维工单
-    #     yunweigongdan_h1 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[4]/div/span')
-    #     gongzuotai_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[4]/ul/li/ul/li[1]/span')
-    #     dingjianguanli_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[4]/ul/li/ul/li[2]/span')
-    #     gongdanchaxun_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[4]/ul/li/ul/li[3]/span')
-    #
-    #     yunweigongdan_h1.click()
-    #     gongzuotai_h2.click()
-    #     word_element_6 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[1]/div/span/img'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_6)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     dingjianguanli_h2.click()
-    #     word_element_7 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/span'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_7)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     gongdanchaxun_h2.click()
-    #     word_element_8 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[2]/div[3]/div/div[2]/table/thead/tr/th[2]/div'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_8)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
+    def test_5_orderManage(self):
+        yunweigongdan_h1 = self.driver.find_element_by_xpath(options.getvalue("运维工单", "一级菜单"))
+        gongzuotai_h2 = self.driver.find_element_by_xpath(options.getvalue("运维工单", "二级菜单_工作台"))
+        dingjianguanli_h2 = self.driver.find_element_by_xpath(options.getvalue("运维工单", "二级菜单_定检管理"))
+        gongdanchaxun_h2 = self.driver.find_element_by_xpath(options.getvalue("运维工单", "二级菜单_工单查询"))
 
+        yunweigongdan_h1.click()
+        gongzuotai_h2.click()
+        word_element_1 = options.getvalue("运维工单", "工作台_头像")
+        try:
+            self.basepage.wait_eleVisible(word_element_1, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_5_orderManage,工作台 用例断言失败")
+            raise e
+
+        dingjianguanli_h2.click()
+        word_element_2 = options.getvalue("运维工单", "元素_定检管理_新增计划")
+        try:
+            self.basepage.wait_eleVisible(word_element_2, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_5_orderManage,定检管理 用例断言失败")
+            raise e
+
+        gongdanchaxun_h2.click()
+        word_element_3 = options.getvalue("运维工单", "元素_工单查询_工单编号")
+        try:
+            self.assertTrue("工单编号" in word_element_3)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_5_orderManage,工单查询 用例断言失败")
+            raise e
 
     # 电能质量
-    # def test_eleQuality(self):
-    #
-    #     # 切换到电能质量
-    #     diannengzhiliang_h1 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[5]/div/span')
-    #     gailan_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[5]/ul/li/ul/li[1]/span')
-    #     dianyapiancha_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[5]/ul/li/ul/li[2]/span')
-    #     gongleyinshu_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[5]/ul/li/ul/li[3]/span')
-    #     sanxiangdianliu_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[5]/ul/li/ul/li[4]/span')
-    #     xiebodianliu_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[5]/ul/li/ul/li[5]/span')
-    #     xiebodianya_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[5]/ul/li/ul/li[6]/span')
-    #
-    #     diannengzhiliang_h1.click()
-    #     gailan_h2.click()
-    #     word_element_9 = '//*[@id="my-canvas-left2"]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_9)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     dianyapiancha_h2.click()
-    #     word_element_10 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[2]/div/div[2]/ul/li[1]/span[2]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_10)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     gongleyinshu_h2.click()
-    #     word_element_11 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[2]/div/div[2]/ul/li/span[2]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_11)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     sanxiangdianliu_h2.click()
-    #     word_element_12 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[2]/div/div[2]/ul/li[1]/span[2]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_12)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     xiebodianliu_h2.click()
-    #     word_element_13 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[2]/div/div[2]/ul/li[3]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_13)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     xiebodianya_h2.click()
-    #     word_element_14 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[2]/div/div[2]/ul/li[3]'
-    #     try:
-    #             WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_14)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
+    def test_6_eleQuality(self):
+        diannengzhiliang_h1 = self.driver.find_element_by_xpath(options.getvalue("电能质量", "一级菜单"))
+        gailan_h2 = self.driver.find_element_by_xpath(options.getvalue("电能质量", "二级菜单_电能质量概览"))
+        dianyapiancha_h2 = self.driver.find_element_by_xpath(options.getvalue("电能质量", "二级菜单_电压偏差"))
+        gongleyinshu_h2 = self.driver.find_element_by_xpath(options.getvalue("电能质量", "二级菜单_功率因数"))
+        sanxiangdianliu_h2 = self.driver.find_element_by_xpath(options.getvalue("电能质量", "二级菜单_三相电流不平衡"))
+        xiebodianliu_h2 = self.driver.find_element_by_xpath(options.getvalue("电能质量", "二级菜单_谐波电流"))
+        xiebodianya_h2 = self.driver.find_element_by_xpath(options.getvalue("电能质量", "二级菜单_谐波电压"))
+
+        # 概览页面
+        diannengzhiliang_h1.click()
+        gailan_h2.click()
+        word_element_1 = options.getvalue("电能质量", "元素_指标")
+        try:
+            self.basepage.wait_eleVisible(word_element_1, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_6_eleQuality,电能质量概览 用例断言失败")
+            raise e
+
+        # 电压偏差页面
+        dianyapiancha_h2.click()
+        word_element_2 = options.getvalue("电能质量", "元素_电压合格率")
+        try:
+            self.basepage.wait_eleVisible(word_element_2, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_6_eleQuality,电压偏差 用例断言失败")
+            raise e
+
+        # 功率因数页面
+        gongleyinshu_h2.click()
+        word_element_3 = options.getvalue("电能质量", "元素_功率因素")
+        try:
+            self.basepage.wait_eleVisible(word_element_3, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_6_eleQuality,功率因数 用例断言失败")
+            raise e
+
+        # 三相电流不平衡页面
+        sanxiangdianliu_h2.click()
+        word_element_4 = options.getvalue("电能质量", "元素_最大不平衡率")
+        try:
+            self.basepage.wait_eleVisible(word_element_4, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_6_eleQuality,三相电流不平衡 用例断言失败")
+            raise e
+
+        # 谐波电流页面
+        xiebodianliu_h2.click()
+        word_element_5 = options.getvalue("电能质量", "元素_最大A相电流总畸变率")
+        try:
+            self.basepage.wait_eleVisible(word_element_5, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_6_eleQuality,谐波电流 用例断言失败")
+            raise e
+
+        # 谐波电压页面
+        xiebodianya_h2.click()
+        word_element_6 = options.getvalue("电能质量", "元素_最大A相电压总畸变率")
+        try:
+            self.basepage.wait_eleVisible(word_element_6, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_6_eleQuality,谐波电压 用例断言失败")
+            raise e
 
     # 报表管理
-    # def test_report(self):
-    #
-    #
-    #     # 切换到报表管理
-    #     baobiao_h1 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[6]/div/span')
-    #     ribao_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[6]/ul/li/ul/li[1]/span')
-    #     yuebao_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[6]/ul/li/ul/li[2]/span')
-    #
-    #     baobiao_h1.click()
-    #     ribao_h2.click()
-    #     word_element_15 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div/div[1]/div[1]/button/span'
-    #     try:
-    #             WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_15)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     yuebao_h2.click()
-    #     word_element_16 = '//*[@id="itableLastMonthShowFlag"]/div[2]/table/thead/tr[1]/th[2]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_16)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #          print("等待页面超时")
+    def test_7_report(self):
+        baobiao_h1 = self.driver.find_element_by_xpath(options.getvalue("报表管理", "一级菜单"))
+        ribao_h2 = self.driver.find_element_by_xpath(options.getvalue("报表管理", "二级菜单_日报"))
+        yuebao_h2 = self.driver.find_element_by_xpath(options.getvalue("报表管理", "二级菜单_月报"))
+
+        # 日报
+        baobiao_h1.click()
+        ribao_h2.click()
+        word_element_1 = options.getvalue("报表管理", "元素_表头")
+        try:
+            self.basepage.wait_eleVisible(word_element_1, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_7_report,日报 用例断言失败")
+            raise e
+
+        # 月报
+        yuebao_h2.click()
+        word_element_2 = options.getvalue("报表管理", "元素_表格")
+        try:
+            self.basepage.wait_eleVisible(word_element_2, wait_time=10)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_7_report,月报 用例断言失败")
+            raise e
 
     # 权限管理
-    # def test_manage(self):
-    #
-    #
-    #     # 切换到权限管理
-    #     quanxian_h1 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[7]/div/span')
-    #     zhanghao_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[7]/ul/li/ul/li[1]/span')
-    #     zuzhi_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[7]/ul/li/ul/li[2]/span')
-    #     role_h2 = self.driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[2]/ul/li[7]/ul/li/ul/li[3]/span')
-    #
-    #     quanxian_h1.click()
-    #     zhanghao_h2.click()
-    #     word_element_17 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[1]/div[1]/div/div[2]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_17)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     zuzhi_h2.click()
-    #     word_element_18 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div[1]/div[2]/div[1]/div/div[2]'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_18)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
-    #
-    #     role_h2.click()
-    #     word_element_19 = '//*[@id="app"]/div/div/div[2]/div[2]/div/div/div[1]/div[2]/span'
-    #     try:
-    #         WebDriverWait(self.driver, 5, 0.5).until(expected_conditions.visibility_of_element_located((By.XPATH, word_element_19)))
-    #     except e.InvalidSelectorException as error:
-    #         print("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #         self.logger.error("元素定位表达式 logo 不正确，请修正：{}".format(word_element_1))
-    #     except e.NoSuchElementException as error:
-    #         print("没有找到该元素")
-    #         self.logger.error("没有找到该元素")
-    #     except TimeoutError as error:
-    #         print("等待页面超时")
+    def test_8_manage(self):
+        quanxian_h1 = self.driver.find_element_by_xpath(options.getvalue("权限管理", "一级菜单"))
+        zhanghao_h2 = self.driver.find_element_by_xpath(options.getvalue("权限管理", "二级菜单_账号管理"))
+        zuzhi_h2 = self.driver.find_element_by_xpath(options.getvalue("权限管理", "二级菜单_组织管理"))
+        role_h2 = self.driver.find_element_by_xpath(options.getvalue("权限管理", "二级菜单_角色管理"))
+
+        # 账号管理
+        quanxian_h1.click()
+        zhanghao_h2.click()
+        word_element_1 = options.getvalue("权限管理", "元素_新建账号")
+        try:
+            # self.basepage.wait_eleVisible(word_element_1, wait_time=10)
+            self.assertTrue("新建账号" in word_element_1)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_8_manage,账号管理 用例断言失败")
+            raise e
+
+        # 组织管理
+        zuzhi_h2.click()
+        word_element_2 = options.getvalue("权限管理", "元素_成员管理")
+        try:
+            # self.basepage.wait_eleVisible(word_element_2, wait_time=10)
+            self.assertTrue("成员管理" in word_element_2)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_8_manage,组织管理 用例断言失败")
+            raise e
+
+        # 角色管理
+        role_h2.click()
+        word_element_3 = options.getvalue("权限管理", "元素_创建角色")
+        try:
+            # self.basepage.wait_eleVisible(word_element_3, wait_time=10)
+            self.assertTrue("创建角色" in word_element_3)
+            self.basepage.logger.info("用例成功执行")
+        except AssertionError as e:
+            self.basepage.logger.error("test_8_manage,角色管理 用例断言失败")
+            raise e
+
 
 if __name__ == "__main__":
     unittest.main()
