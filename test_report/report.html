@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>2020-09-14web自动化测试报告</title>
+    <title>2020-09-29web自动化测试报告</title>
     <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
@@ -119,22 +119,22 @@ function html_escape(s) {
 }
 </script>
 <div class='heading'>
-<h1 style="font-family: Microsoft YaHei">2020-09-14web自动化测试报告</h1>
+<h1 style="font-family: Microsoft YaHei">2020-09-29web自动化测试报告</h1>
 <p class='attribute'><strong>测试人员 : </strong> YOYO</p>
-<p class='attribute'><strong>开始时间 : </strong> 2020-09-14 15:18:46</p>
-<p class='attribute'><strong>合计耗时 : </strong> 0:02:57.085320</p>
-<p class='attribute'><strong>测试结果 : </strong> 共 8，通过 3，错误 5，通过率= 37.50%</p>
+<p class='attribute'><strong>开始时间 : </strong> 2020-09-29 16:59:39</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:01:09.355745</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 5，通过 5，通过率= 100.00%</p>
 
 <p class='description'></p>
 </div>
 
 
 <p id='show_detail_line'>
-<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 37.50% }</a>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 100.00% }</a>
 <a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 0 }</a>
-<a class="btn btn-error" style='background:#f4e02a' href='javascript:showCase(2)'>错误{ 5 }</a>
-<a class="btn btn-success" href='javascript:showCase(3)'>通过{ 3 }</a>
-<a class="btn btn-info" href='javascript:showCase(4)'>所有{ 8 }</a>
+<a class="btn btn-error" style='background:#f4e02a' href='javascript:showCase(2)'>错误{ 0 }</a>
+<a class="btn btn-success" href='javascript:showCase(3)'>通过{ 5 }</a>
+<a class="btn btn-info" href='javascript:showCase(4)'>所有{ 5 }</a>
 </p>
 <table id='result_table' class="table table-condensed table-bordered table-hover">
 <colgroup>
@@ -154,188 +154,47 @@ function html_escape(s) {
     <td>详细</td>
 </tr>
 
-<tr class='errorClass warning'>
-    <td>testcases.testcase.TestCases</td>
-    <td class="text-center">8</td>
-    <td class="text-center">3</td>
-    <td class="text-center">0</td>
+<tr class='passClass warning'>
+    <td>testcases.test_login.TestLogin</td>
     <td class="text-center">5</td>
-    <td class="text-center"><a href="javascript:showClassDetail('c1',8)" class="detail" id='c1'>详细</a></td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',5)" class="detail" id='c1'>详细</a></td>
 </tr>
 
 <tr id='pt1_1' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_1_login</div></td>
+    <td class='passCase'><div class='testcase'>test_login1_user_or_pwd_isnull_1: dict() -> new empty dictionary</div></td>
     <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
 </tr>
 
 <tr id='pt1_2' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_2_skyView</div></td>
+    <td class='passCase'><div class='testcase'>test_login1_user_or_pwd_isnull_2: dict() -> new empty dictionary</div></td>
     <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
 </tr>
 
 <tr id='pt1_3' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_3_operationMonitor</div></td>
+    <td class='passCase'><div class='testcase'>test_login2_user_or_pwd_wrong_1: dict() -> new empty dictionary</div></td>
     <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
 </tr>
 
-<tr id='ft1_4' class='none'>
-    <td class='errorCase'><div class='testcase'>test_4_currentAlarm</div></td>
-    <td colspan='5' align='center'>
-    <!--默认收起错误信息 -Findyou
-    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_4'>错误</button>
-    <div id='div_ft1_4' class="collapse">  -->
-    <!-- 默认展开错误信息 -Findyou -->
-    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_4'>错误</button>
-    <div id='div_ft1_4' class="collapse in" align="left">
-    <pre>
-    
-ft1_4: Message: no such alert
-  (Session info: chrome=84.0.4147.105)
-
-Traceback (most recent call last):
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\testcase.py", line 140, in test_4_currentAlarm
-    self.basepage.wait_eleVisible(word_element_4, wait_time=10)
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 40, in wait_eleVisible
-    raise e
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 30, in wait_eleVisible
-    WebDriverWait(self.driver, wait_time, 1).until(expected_conditions.presence_of_element_located((by, locator)))
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\support\wait.py", line 80, in until
-    raise TimeoutException(message, screen, stacktrace)
-selenium.common.exceptions.TimeoutException: Message: 
-
-
-
-    </pre>
-    </div>
-    </td>
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login2_user_or_pwd_wrong_2: dict() -> new empty dictionary</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
 </tr>
 
-<tr id='ft1_5' class='none'>
-    <td class='errorCase'><div class='testcase'>test_5_orderManage</div></td>
-    <td colspan='5' align='center'>
-    <!--默认收起错误信息 -Findyou
-    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_5'>错误</button>
-    <div id='div_ft1_5' class="collapse">  -->
-    <!-- 默认展开错误信息 -Findyou -->
-    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_5'>错误</button>
-    <div id='div_ft1_5' class="collapse in" align="left">
-    <pre>
-    
-ft1_5: Traceback (most recent call last):
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\testcase.py", line 166, in test_5_orderManage
-    self.basepage.wait_eleVisible(word_element_1, wait_time=10)
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 40, in wait_eleVisible
-    raise e
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 30, in wait_eleVisible
-    WebDriverWait(self.driver, wait_time, 1).until(expected_conditions.presence_of_element_located((by, locator)))
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\support\wait.py", line 80, in until
-    raise TimeoutException(message, screen, stacktrace)
-selenium.common.exceptions.TimeoutException: Message: 
-
-
-
-    </pre>
-    </div>
-    </td>
-</tr>
-
-<tr id='ft1_6' class='none'>
-    <td class='errorCase'><div class='testcase'>test_6_eleQuality</div></td>
-    <td colspan='5' align='center'>
-    <!--默认收起错误信息 -Findyou
-    <button id='btn_ft1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_6'>错误</button>
-    <div id='div_ft1_6' class="collapse">  -->
-    <!-- 默认展开错误信息 -Findyou -->
-    <button id='btn_ft1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_6'>错误</button>
-    <div id='div_ft1_6' class="collapse in" align="left">
-    <pre>
-    
-ft1_6: Traceback (most recent call last):
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\testcase.py", line 225, in test_6_eleQuality
-    self.basepage.wait_eleVisible(word_element_3, wait_time=10)
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 40, in wait_eleVisible
-    raise e
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 30, in wait_eleVisible
-    WebDriverWait(self.driver, wait_time, 1).until(expected_conditions.presence_of_element_located((by, locator)))
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\support\wait.py", line 80, in until
-    raise TimeoutException(message, screen, stacktrace)
-selenium.common.exceptions.TimeoutException: Message: 
-
-
-
-    </pre>
-    </div>
-    </td>
-</tr>
-
-<tr id='ft1_7' class='none'>
-    <td class='errorCase'><div class='testcase'>test_7_report</div></td>
-    <td colspan='5' align='center'>
-    <!--默认收起错误信息 -Findyou
-    <button id='btn_ft1_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_7'>错误</button>
-    <div id='div_ft1_7' class="collapse">  -->
-    <!-- 默认展开错误信息 -Findyou -->
-    <button id='btn_ft1_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_7'>错误</button>
-    <div id='div_ft1_7' class="collapse in" align="left">
-    <pre>
-    
-ft1_7: Traceback (most recent call last):
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\testcase.py", line 272, in test_7_report
-    self.basepage.wait_eleVisible(word_element_1, wait_time=10)
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 40, in wait_eleVisible
-    raise e
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\basepage.py", line 30, in wait_eleVisible
-    WebDriverWait(self.driver, wait_time, 1).until(expected_conditions.presence_of_element_located((by, locator)))
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\support\wait.py", line 80, in until
-    raise TimeoutException(message, screen, stacktrace)
-selenium.common.exceptions.TimeoutException: Message: 
-
-
-
-    </pre>
-    </div>
-    </td>
-</tr>
-
-<tr id='ft1_8' class='none'>
-    <td class='errorCase'><div class='testcase'>test_8_manage</div></td>
-    <td colspan='5' align='center'>
-    <!--默认收起错误信息 -Findyou
-    <button id='btn_ft1_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_8'>错误</button>
-    <div id='div_ft1_8' class="collapse">  -->
-    <!-- 默认展开错误信息 -Findyou -->
-    <button id='btn_ft1_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_8'>错误</button>
-    <div id='div_ft1_8' class="collapse in" align="left">
-    <pre>
-    
-ft1_8: Traceback (most recent call last):
-  File "E:\桌面\PycharmProjects\test-auto-web\testcases\testcase.py", line 297, in test_8_manage
-    zhanghao_h2.click()
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
-    self._execute(Command.CLICK_ELEMENT)
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
-    return self._parent.execute(command, params)
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "E:\Python\Python37\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
-  (Session info: chrome=84.0.4147.105)
-
-
-
-    </pre>
-    </div>
-    </td>
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login3_ok</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
 </tr>
 
 <tr id='total_row'>   # 列表后的总计
     <td>Total</td>
-    <td>8</td>
-    <td>3</td>
-    <td>0</td>
     <td>5</td>
-    <td>通过率：37.50%</td>
+    <td>5</td>
+    <td>0</td>
+    <td>0</td>
+    <td>通过率：100.00%</td>
 </tr>
 </table>
 

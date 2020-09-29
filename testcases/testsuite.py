@@ -9,13 +9,16 @@
 
 import unittest
 from common import HTMLTestRunnerNew
-from testcases.testcase import TestCases
 from common import contants
 import datetime
+from testcases.testSmokeCase import TestSmokeCases
+from testcases.test_login import TestLogin
+from testcases.test_operationMonitor import TestOperationMonitor
+from testcases.test_manage import TestManage
 
 suite = unittest.TestSuite()
 loader = unittest.TestLoader()
-suite.addTest(loader.loadTestsFromTestCase(TestCases))
+suite.addTest(loader.loadTestsFromTestCase(TestLogin))
 
 report = contants.report
 test_time = datetime.date.today()
